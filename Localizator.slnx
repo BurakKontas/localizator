@@ -11,6 +11,7 @@
   <Folder Name="/Modules/Auth/">
     <Project Path="Localizator.Auth/Localizator.Auth.Application/Localizator.Auth.Application.csproj" />
     <Project Path="Localizator.Auth/Localizator.Auth.Domain/Localizator.Auth.Domain.csproj" />
+    <Project Path="Localizator.Auth/Localizator.Auth.Infrastructure/Localizator.Auth.Infrastructure.csproj" Id="757d5f8f-e5b4-4062-879c-801a412e0a83" />
   </Folder>
   <Folder Name="/Modules/Namespace/">
     <Project Path="Localizator.Namespace/Localizator.Namespace.Application/Localizator.Namespace.Application.csproj" />
@@ -31,5 +32,4 @@
     <Build />
   </Project>
   <Project Path="Localizator.API/Localizator.API.csproj" />
-  <Project Path="Localizator.Infrastructure/Localizator.Infrastructure.csproj" />
 </Solution>
