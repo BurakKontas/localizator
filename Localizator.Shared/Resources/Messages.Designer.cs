@@ -22,7 +22,7 @@ namespace Localizator.Shared.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Messages {
+    internal class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Localizator.Shared.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Localizator.Shared.Resources.Messages", typeof(Messages).Assembly);
@@ -51,84 +51,12 @@ namespace Localizator.Shared.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Authorization header not found.
-        /// </summary>
-        public static string AuthorizationHeaderNotFound {
-            get {
-                return ResourceManager.GetString("AuthorizationHeaderNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Base64 conversion error.
-        /// </summary>
-        public static string Base64ConversionError {
-            get {
-                return ResourceManager.GetString("Base64ConversionError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Authorization header doesn&apos;t start with Basic.
-        /// </summary>
-        public static string BasicAuthorizationHeaderInvalidFormat {
-            get {
-                return ResourceManager.GetString("BasicAuthorizationHeaderInvalidFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Basic Credentials don&apos;t match.
-        /// </summary>
-        public static string BasicCredentialsDontMatch {
-            get {
-                return ResourceManager.GetString("BasicCredentialsDontMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to context.Resource is not Microsoft.AspNetCore.Http.HttpContext.
-        /// </summary>
-        public static string ContextResourceIsNotHttpContext {
-            get {
-                return ResourceManager.GetString("ContextResourceIsNotHttpContext", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to create development user: {0}.
-        /// </summary>
-        public static string FailedToCreateDevUser {
-            get {
-                return ResourceManager.GetString("FailedToCreateDevUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to create identity user: {0}.
-        /// </summary>
-        public static string FailedToCreateIdentityUser {
-            get {
-                return ResourceManager.GetString("FailedToCreateIdentityUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid credential format.
-        /// </summary>
-        public static string InvalidCredentialFormat {
-            get {
-                return ResourceManager.GetString("InvalidCredentialFormat", resourceCulture);
             }
         }
     }

@@ -4,6 +4,8 @@ namespace Localizator.Shared.Result;
 
 public class Result<T> : Result
 {
+    public new T? Data { get; set; }
+
     public static Result<T> Success(T? data = default, string message = "", Meta? meta = null)
         => new Result<T>
         {

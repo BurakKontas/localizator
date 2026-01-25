@@ -23,7 +23,6 @@ public sealed class AuthOptionsProvider(IConfiguration config) : IAuthOptionsPro
         {
             "oidc" => BindAndValidate<OidcAuthOptions>("OIDC"),
             "local" => BindAndValidate<LocalAuthOptions>("LOCAL"),
-            "header" => BindAndValidate<HeaderAuthOptions>("HEADER"),
             "apikey" => BindAndValidate<ApiKeyAuthOptions>("API_KEY"),
             "hybrid" => BindAndValidate<HybridAuthOptions>("HYBRID"),
             "none" => BindAndValidate<NoneAuthOptions>("NONE"),

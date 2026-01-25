@@ -9,14 +9,12 @@ public sealed class HybridAuthOptions : IHybridAuthOptions
 
     // === OIDC ===
     public string Issuer { get; init; } = default!;
-    public string ClientId { get; init; } = default!;
-    public string ClientSecret { get; init; } = default!;
-    public string RedirectUri { get; init; } = default!;
-    public string? Scopes { get; init; }
-    public string? Audience { get; init; }
+    public string Audience { get; init; } = default!;
+    public string ConfigurationUrl { get; init; } = default!;
 
     // === API KEY ===
     public IReadOnlyDictionary<string, string> ApiKeys { get; init; } = new Dictionary<string, string>();
+
 
     public override string ToString()
     {
@@ -24,6 +22,6 @@ public sealed class HybridAuthOptions : IHybridAuthOptions
             ? string.Join(", ", ApiKeys.Select(kv => $"{kv.Key}:{kv.Value}"))
             : "None";
         
-        return $"Mode: {Mode}, Issuer: {Issuer}, ClientId: {ClientId}, ClientSecret: ****, RedirectUri: {RedirectUri}, Scopes: {Scopes}, Audience: {Audience}, ApiKeys: {apiKeys}";
+        return $"Mode: {Mode}, Issuer: {Issuer}, Audience: {Audience}, ApiKeys: {apiKeys}";
     }
 }

@@ -2,12 +2,14 @@
 using Localizator.Auth.Domain.Interfaces.Configuration;
 using Localizator.Auth.Domain.Interfaces.Strategy;
 using Localizator.Auth.Infrastructure.Strategies.Abstract;
+using Localizator.Shared.Extensions;
 using Localizator.Shared.Resources;
 using Localizator.Shared.Result;
-using Localizator.Shared.Extensions;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 using System.Text;
 
 namespace Localizator.Auth.Infrastructure.Strategies;
@@ -27,16 +29,14 @@ public sealed class LocalAuthStrategy(
         if (!context.Request.Headers.TryGetValue("Authorization", out var authHeader))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            context.Response.Headers.TryAdd("WWW-Authenticate", "Basic realm=\"Localizator\"");
-            return Result<bool>.Failure(Messages.AuthorizationHeaderNotFound);
+            return Result<bool>.Failure(Errors.AuthorizationHeaderNotFound);
         }
 
         var headerValue = authHeader.ToString();
         if (!headerValue.StartsWith("Basic ", StringComparison.OrdinalIgnoreCase))
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            context.Response.Headers.TryAdd("WWW-Authenticate", "Basic realm=\"Localizator\"");
-            return Result<bool>.Failure(Messages.BasicAuthorizationHeaderInvalidFormat);
+            return Result<bool>.Failure(Errors.BasicAuthorizationHeaderInvalidFormat);
         }
 
         // Decode Base64 credentials
@@ -50,7 +50,7 @@ public sealed class LocalAuthStrategy(
         catch
         {
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return Result<bool>.Failure(Messages.Base64ConversionError);
+            return Result<bool>.Failure(Errors.Base64ConversionError);
         }
 
         var parts = decoded.Split(':', 2);
@@ -66,8 +66,18 @@ public sealed class LocalAuthStrategy(
         if (username != Options.AdminUser || password != Options.AdminPassword)
         {
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            context.Response.Headers.TryAdd("WWW-Authenticate", "Basic realm=\"Localizator\"");
-            return Result<bool>.Failure(Messages.BasicCredentialsDontMatch);
+            return Result<bool>.Failure(Errors.BasicCredentialsDontMatch);
+        }
+
+        Result<bool> isLoggedIn = CheckIfUserLoggedIn(_signInManager, context, username);
+
+        if(isLoggedIn.IsSuccess && isLoggedIn.Data)
+        {
+            return Result<bool>.Success(true);
+        }
+        else
+        {
+            await _signInManager.SignOutAsync();
         }
 
         // Identity user creation/check
@@ -78,7 +88,7 @@ public sealed class LocalAuthStrategy(
             var result = await _userManager.CreateAsync(user, password);
             if (!result.Succeeded)
             {
-                string message = Messages.FailedToCreateIdentityUser.Format(string.Join(", ", result.Errors.Select(e => e.Description)));
+                string message = Errors.FailedToCreateIdentityUser.Format(string.Join(", ", result.Errors.Select(e => e.Description)));
 
                 _logger.LogError(message);
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
@@ -86,8 +96,26 @@ public sealed class LocalAuthStrategy(
             }
         }
 
-        // Sign in with Identity (creates session/cookie)
-        await _signInManager.SignInAsync(user, isPersistent: false);
+        var principal = await _signInManager.CreateUserPrincipalAsync(user);
+
+        // auth mode claim
+        principal.Identities.First().AddClaim(
+            new Claim("auth_mode", Options.Mode.ToString())
+        );
+
+        // opsiyonel ama anlamlı
+        principal.Identities.First().AddClaim(
+            new Claim(ClaimTypes.AuthenticationMethod, "local")
+        );
+
+        await context.SignInAsync(
+            IdentityConstants.ApplicationScheme,
+            principal,
+            new AuthenticationProperties
+            {
+                IsPersistent = false
+            }
+        );
 
         return Result<bool>.Success(true);
     }

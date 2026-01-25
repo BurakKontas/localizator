@@ -24,7 +24,6 @@ public static class DependencyInjection
 
         services.AddSingleton<IValidator<OidcAuthOptions>, OidcAuthOptionsValidator>();
         services.AddSingleton<IValidator<LocalAuthOptions>, LocalAuthOptionsValidator>();
-        services.AddSingleton<IValidator<HeaderAuthOptions>, HeaderAuthOptionsValidator>();
         services.AddSingleton<IValidator<ApiKeyAuthOptions>, ApiKeyAuthOptionsValidator>();
         services.AddSingleton<IValidator<HybridAuthOptions>, HybridAuthOptionsValidator>();
         services.AddSingleton<IValidator<NoneAuthOptions>, NoneAuthOptionsValidator>();

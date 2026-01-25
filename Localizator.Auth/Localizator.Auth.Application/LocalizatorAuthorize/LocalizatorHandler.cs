@@ -32,7 +32,7 @@ public sealed class LocalizatorHandler(IAuthStrategy authStrategy) : Authorizati
         }
         else
         {
-            context.Fail(new AuthorizationFailureReason(this, Messages.ContextResourceIsNotHttpContext));
+            context.Fail(new AuthorizationFailureReason(this, Errors.ContextResourceIsNotHttpContext));
         }
     }
 }

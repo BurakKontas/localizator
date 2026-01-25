@@ -1,26 +1,66 @@
 ﻿using Localizator.Auth.Domain.Configuration.Mode;
+using Localizator.Auth.Domain.Identity;
 using Localizator.Auth.Domain.Interfaces.Configuration;
 using Localizator.Auth.Domain.Interfaces.Strategy;
 using Localizator.Auth.Infrastructure.Strategies.Abstract;
 using Localizator.Shared.Result;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace Localizator.Auth.Infrastructure.Strategies;
 
-public sealed class HybridAuthStrategy(IAuthOptionsProvider provider, ILogger<HybridAuthStrategy> logger) : AuthStrategyBase<IHybridAuthOptions>(provider)
+public sealed class HybridAuthStrategy(
+    IAuthOptionsProvider provider,
+    ILoggerFactory loggerFactory,
+    UserManager<LocalizatorIdentityUser> userManager,
+    SignInManager<LocalizatorIdentityUser> signInManager) : AuthStrategyBase<IHybridAuthOptions>(provider)
 {
-    private readonly ILogger<HybridAuthStrategy> _logger = logger;
+    private readonly IAuthOptionsProvider _provider = provider;
+    private readonly ILogger<HybridAuthStrategy> _logger = loggerFactory.CreateLogger<HybridAuthStrategy>();
+    private readonly UserManager<LocalizatorIdentityUser> _userManager = userManager;
+    private readonly SignInManager<LocalizatorIdentityUser> _signInManager = signInManager;
 
     public override async Task<Result<bool>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
     {
-        // TODO:
-        // if API key present → apiKey
-        // else → oidc
+        if (Options is not IApiKeyAuthOptions apiKeyOptions || Options is not IOidcAuthOptions oidcAuthOptions)
+        {
+            _logger.LogError("HybridAuthStrategy requires both API Key and OIDC options.");
+            return Result<bool>.Failure("Invalid authentication configuration.");
+        }
 
-        _logger.LogInformation("Hybrid authentication strategy invoked.");
-        _logger.LogInformation(Options.ToString());
+        string message = string.Empty;
 
-        return Result<bool>.Success();
+        if (apiKeyOptions is not null)
+        {
+            ILogger<ApiKeyAuthStrategy> apiKeyLogger = loggerFactory.CreateLogger<ApiKeyAuthStrategy>();
+            var apiKeyStrategy = new ApiKeyAuthStrategy(_provider, apiKeyLogger, _userManager, _signInManager);
+
+            Result<bool> apiKeyResult = await apiKeyStrategy.AuthenticateAsync(context, ct);
+
+            if(apiKeyResult.IsSuccess && apiKeyResult.Data)
+            {
+                return Result<bool>.Success();
+            }
+
+            message += "API Key: " + apiKeyResult.Message + ". ";
+        }
+
+        if (oidcAuthOptions is not null)
+        {
+            ILogger<OidcAuthStrategy> oidcLogger = loggerFactory.CreateLogger<OidcAuthStrategy>();
+            var oidcStrategy = new OidcAuthStrategy(_provider, oidcLogger, _signInManager, _userManager);
+
+            Result<bool> oidcResult = await oidcStrategy.AuthenticateAsync(context, ct);
+
+            if(oidcResult.IsSuccess && oidcResult.Data)
+            {
+                return Result<bool>.Success();
+            }
+
+            message += "OIDC: " + oidcResult.Message;
+        }
+
+        return Result<bool>.Failure(message);
     }
 }

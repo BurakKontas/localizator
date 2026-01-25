@@ -11,19 +11,15 @@ public sealed class OidcAuthOptionsValidator : AbstractValidator<OidcAuthOptions
             .NotEmpty()
             .WithMessage("OIDC_ISSUER is required");
 
-        RuleFor(x => x.ClientId)
+        RuleFor(x => x.Audience)
             .NotEmpty()
-            .WithMessage("OIDC_CLIENT_ID is required");
+            .WithMessage("OIDC_AUDIENCE is required");
 
-        RuleFor(x => x.ClientSecret)
+        RuleFor(x => x.ConfigurationUrl)
             .NotEmpty()
-            .WithMessage("OIDC_CLIENT_SECRET is required");
-
-        RuleFor(x => x.RedirectUri)
-            .NotEmpty()
-            .WithMessage("OIDC_REDIRECT_URI is required")
+            .WithMessage("OIDC_CONFIGURATIONURL is required")
             .Must(BeAValidUri)
-            .WithMessage("OIDC_REDIRECT_URI must be a valid absolute URI");
+            .WithMessage("OIDC_CONFIGURATIONURL must be a valid absolute URI");
     }
 
     private static bool BeAValidUri(string uri) => Uri.TryCreate(uri, UriKind.Absolute, out _);

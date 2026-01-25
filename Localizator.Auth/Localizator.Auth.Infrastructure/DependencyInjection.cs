@@ -27,7 +27,6 @@ public static class DependencyInjection
 
         services.AddScoped<OidcAuthStrategy>();
         services.AddScoped<LocalAuthStrategy>();
-        services.AddScoped<HeaderAuthStrategy>();
         services.AddScoped<ApiKeyAuthStrategy>();
         services.AddScoped<HybridAuthStrategy>();
         services.AddScoped<NoneAuthStrategy>();

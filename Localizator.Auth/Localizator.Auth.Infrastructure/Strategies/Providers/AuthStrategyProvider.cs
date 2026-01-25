@@ -22,7 +22,6 @@ public sealed class AuthStrategyProvider(IAuthOptionsProvider optionsProvider, I
         {
             AuthMode.Oidc => _sp.GetRequiredService<OidcAuthStrategy>(),
             AuthMode.Local => _sp.GetRequiredService<LocalAuthStrategy>(),
-            AuthMode.Header => _sp.GetRequiredService<HeaderAuthStrategy>(),
             AuthMode.ApiKey => _sp.GetRequiredService<ApiKeyAuthStrategy>(),
             AuthMode.Hybrid => _sp.GetRequiredService<HybridAuthStrategy>(),
             AuthMode.None => _sp.GetRequiredService<NoneAuthStrategy>(),
