@@ -147,4 +147,7 @@
   <data name="InvalidOrMissingAPIKey" xml:space="preserve">
     <value>Geçersiz yada eksik API Key</value>
   </data>
+  <data name="ResourceNotFound" xml:space="preserve">
+    <value>Çevre değişkeni bulunamadı ({0})</value>
+  </data>
 </root>

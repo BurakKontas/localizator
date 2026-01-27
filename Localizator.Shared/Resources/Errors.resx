@@ -157,4 +157,8 @@
     <value>Invalid or missing API Key</value>
     <comment>Message shown when user has invalid or missing api key</comment>
   </data>
+  <data name="ResourceNotFound" xml:space="preserve">
+    <value>Resource not found in environment ({0})</value>
+    <comment>Message shown when a resource not found in environment.</comment>
+  </data>
 </root>

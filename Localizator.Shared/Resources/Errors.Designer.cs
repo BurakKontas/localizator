@@ -149,5 +149,14 @@ namespace Localizator.Shared.Resources {
                 return ResourceManager.GetString("NameIdentifierClaimMissing", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource not found in environment ({0}).
+        /// </summary>
+        public static string ResourceNotFound {
+            get {
+                return ResourceManager.GetString("ResourceNotFound", resourceCulture);
+            }
+        }
     }
 }
