@@ -3,14 +3,10 @@ using Localizator.Auth.Domain.Identity;
 using Localizator.Auth.Domain.Interfaces.Configuration;
 using Localizator.Auth.Domain.Interfaces.Strategy;
 using Localizator.Auth.Infrastructure.Strategies.Abstract;
-using Localizator.Shared.Extensions;
-using Localizator.Shared.Resources;
 using Localizator.Shared.Result;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 
 namespace Localizator.Auth.Infrastructure.Strategies;
 

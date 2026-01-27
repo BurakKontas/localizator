@@ -3,7 +3,10 @@ using Localizator.API.Middlewares;
 using Localizator.Auth.Application;
 using Localizator.Auth.Infrastructure;
 using Localizator.Shared.Config;
+using Localizator.Shared.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Wolverine.Http;
+using Wolverine.Http.Transport;
 
 var builder = WebApplication.CreateBuilder(args);
 
