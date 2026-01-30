@@ -9,7 +9,7 @@ public sealed class ValidationException : BaseException
     public ValidationException(
         IDictionary<string, string[]> errors,
         string message = "Validation failed")
-        : base("ValidationError", message, 400)
+        : base("ValidationError", 400, message: message)
     {
         Errors = errors;
     }

@@ -9,7 +9,7 @@ public class Meta
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     public string Version { get; set; } = AppConfig.ApiVersion;
     public string Duration { get; set; } = "00:00:00.000 000";
-    public Pagination? Pagination { get; set; } = Pagination.Empty();
+    public Pagination? Pagination { get; set; }
     public RateLimit? RateLimit { get; set; } = RateLimit.Empty();
 
     public static Meta Auto() => new();

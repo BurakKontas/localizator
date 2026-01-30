@@ -1,4 +1,6 @@
-﻿using Localizator.Shared.Helpers;
+﻿using Localizator.Shared.Extensions;
+using Localizator.Shared.Helpers;
+using Localizator.Shared.Resources;
 using Soenneker.Dtos.ProblemDetails;
 
 namespace Localizator.Shared.Exceptions;
@@ -10,10 +12,9 @@ public abstract class BaseException : Exception
 
     protected BaseException(
         string code,
-        string message,
         int statusCode,
-        Exception? innerException = null)
-        : base(message, innerException)
+        Exception? innerException = null, string? message = null)
+        : base(message ?? GetMessage(code) ?? Errors.AnErrorOccured, innerException)
     {
         Code = code;
         StatusCode = statusCode;
@@ -40,5 +41,10 @@ public abstract class BaseException : Exception
         details.Extensions!.Concat(Extensions);
 
         return details;
+    }
+
+    public static string GetMessage(string code)
+    {
+        return Errors.ResourceManager.GetString(code) ?? Errors.AnErrorOccured;
     }
 }
