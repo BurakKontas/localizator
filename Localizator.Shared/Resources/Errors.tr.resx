@@ -195,4 +195,85 @@
   <data name="InvalidOIDCToken" xml:space="preserve">
     <value>OIDC token doğrulaması başarısız.</value>
   </data>
+  <data name="NamespaceNameCannotBeEmpty" xml:space="preserve">
+    <value>Namespace adı boş olamaz</value>
+  </data>
+  <data name="NamespaceNameTooLong" xml:space="preserve">
+    <value>Namespace adı 100 karakteri geçemez</value>
+  </data>
+  <data name="NamespaceSlugCannotBeEmpty" xml:space="preserve">
+    <value>Namespace slug'ı boş olamaz</value>
+  </data>
+  <data name="NamespaceSlugInvalidFormat" xml:space="preserve">
+    <value>Namespace slug'ı sadece küçük harf, sayı ve tire içerebilir</value>
+  </data>
+  <data name="NamespaceSlugTooLong" xml:space="preserve">
+    <value>Namespace slug'ı 50 karakteri geçemez</value>
+  </data>
+  <data name="NamespaceStatusCannotBeEmpty" xml:space="preserve">
+    <value>Durum boş olamaz</value>
+  </data>
+  <data name="NamespaceStatusInvalid" xml:space="preserve">
+    <value>Geçersiz durum. Şunlardan biri olmalı: {0}</value>
+  </data>
+  <data name="NamespaceVersionCannotBeEmpty" xml:space="preserve">
+    <value>Versiyon boş olamaz</value>
+  </data>
+  <data name="NamespaceVersionInvalidFormat" xml:space="preserve">
+    <value>Versiyon semantic versioning kurallarına uymalı (örn: 1.0.0)</value>
+  </data>
+  <data name="PublisherIdentifierCannotBeEmpty" xml:space="preserve">
+    <value>Yayınlayan tanımlayıcısı boş olamaz</value>
+  </data>
+  <data name="AtLeastOneLanguageRequired" xml:space="preserve">
+    <value>En az bir dil desteklenmeli</value>
+  </data>
+  <data name="InvalidLanguageCode" xml:space="preserve">
+    <value>Tüm dil kodları 2 harfli ISO kodları olmalı</value>
+  </data>
+  <data name="PublishedDateCannotBeFuture" xml:space="preserve">
+    <value>Yayınlanma tarihi gelecekte olamaz</value>
+  </data>
+  <data name="NamespaceIdCannotBeEmpty" xml:space="preserve">
+    <value>Namespace ID'si boş olamaz</value>
+  </data>
+  <data name="CannotUpdateArchivedNamespace" xml:space="preserve">
+    <value>Arşivlenmiş namespace'in adı güncellenemez</value>
+  </data>
+  <data name="CannotChangePublishedSlug" xml:space="preserve">
+    <value>Yayınlanmış veya arşivlenmiş namespace'in slug'ı değiştirilemez</value>
+  </data>
+  <data name="NamespaceAlreadyPublished" xml:space="preserve">
+    <value>Namespace zaten yayınlanmış</value>
+  </data>
+  <data name="CannotPublishArchivedNamespace" xml:space="preserve">
+    <value>Arşivlenmiş namespace yayınlanamaz</value>
+  </data>
+  <data name="NamespaceAlreadyDraft" xml:space="preserve">
+    <value>Namespace zaten taslak durumunda</value>
+  </data>
+  <data name="CannotUnpublishArchivedNamespace" xml:space="preserve">
+    <value>Arşivlenmiş namespace yayından kaldırılamaz</value>
+  </data>
+  <data name="NamespaceAlreadyArchived" xml:space="preserve">
+    <value>Namespace zaten arşivlenmiş</value>
+  </data>
+  <data name="OnlyArchivedCanBeRestored" xml:space="preserve">
+    <value>Sadece arşivlenmiş namespace'ler geri yüklenebilir</value>
+  </data>
+  <data name="CannotModifyArchivedNamespace" xml:space="preserve">
+    <value>Arşivlenmiş namespace değiştirilemez</value>
+  </data>
+  <data name="NamespaceMustSupportOneLanguage" xml:space="preserve">
+    <value>Namespace en az bir dili desteklemeli</value>
+  </data>
+  <data name="InvalidVersionBumpType" xml:space="preserve">
+    <value>Geçersiz versiyon artırma tipi</value>
+  </data>
+  <data name="NamespacePermissionCannotBeNull" xml:space="preserve">
+    <value>Namespace izni boş olamaz.</value>
+  </data>
+  <data name="InvalidNamespacePermission" xml:space="preserve">
+    <value>Geçersiz namespace yetkisi.</value>
+  </data>
 </root>

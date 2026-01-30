@@ -1,6 +1,7 @@
 ﻿using Localizator.Auth.Application.Interfaces.Validators;
 using Localizator.Auth.Domain.Interfaces.Strategy;
 using Localizator.Auth.Infrastructure.Persistence;
+using Localizator.Namespace.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -31,8 +32,10 @@ public static class WebApplicationExtensions
     {
         using (var scope = app.Services.CreateScope())
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-            await dbContext.Database.MigrateAsync();
+            var authDbContext = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+            var namespaceDbContext = scope.ServiceProvider.GetRequiredService<NamespaceDbContext>();
+            await authDbContext.Database.MigrateAsync();
+            await namespaceDbContext.Database.MigrateAsync();
 
             var optionsFactory = scope.ServiceProvider.GetRequiredService<IAuthOptionsProvider>();
             var validator = scope.ServiceProvider.GetRequiredService<IAuthOptionsValidatorResolver>();

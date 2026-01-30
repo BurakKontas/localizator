@@ -17,3 +17,5 @@ public class NamespaceDbContext(DbContextOptions<NamespaceDbContext> options, IM
         );
     }
 }
+
+// dotnet ef migrations add InitialCreate --project Localizator.Namespace\Localizator.Namespace.Infrastructure  --startup-project Localizator.API -c NamespaceDbContext -o .\Localizator.Namespace\Localizator.Namespace.Infrastructure\Persistence\Migrations

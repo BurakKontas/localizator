@@ -2,6 +2,7 @@
 using Localizator.API.Middlewares;
 using Localizator.Auth.Application;
 using Localizator.Auth.Infrastructure;
+using Localizator.Namespace.Infrastructure;
 using Localizator.Shared.Config;
 using Localizator.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddAuthInfrastructure(builder.Configuration);
 builder.Services.AddAuthApplication();
+
+builder.Services.AddNamespaceInfrastructure(builder.Configuration);
 
 // builder.Services.AddUserInfrastructure(builder.Configuration);
 var app = builder.Build();

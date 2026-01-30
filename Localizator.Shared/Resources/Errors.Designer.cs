@@ -70,6 +70,15 @@ namespace Localizator.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At least one language must be supported.
+        /// </summary>
+        public static string AtLeastOneLanguageRequired {
+            get {
+                return ResourceManager.GetString("AtLeastOneLanguageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorization header not found.
         /// </summary>
         public static string AuthorizationHeaderNotFound {
@@ -120,6 +129,51 @@ namespace Localizator.Shared.Resources {
         public static string BearerTokenMissing {
             get {
                 return ResourceManager.GetString("BearerTokenMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot change slug of published or archived namespace.
+        /// </summary>
+        public static string CannotChangePublishedSlug {
+            get {
+                return ResourceManager.GetString("CannotChangePublishedSlug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot modify archived namespace.
+        /// </summary>
+        public static string CannotModifyArchivedNamespace {
+            get {
+                return ResourceManager.GetString("CannotModifyArchivedNamespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot publish archived namespace.
+        /// </summary>
+        public static string CannotPublishArchivedNamespace {
+            get {
+                return ResourceManager.GetString("CannotPublishArchivedNamespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot unpublish archived namespace.
+        /// </summary>
+        public static string CannotUnpublishArchivedNamespace {
+            get {
+                return ResourceManager.GetString("CannotUnpublishArchivedNamespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot update name of archived namespace.
+        /// </summary>
+        public static string CannotUpdateArchivedNamespace {
+            get {
+                return ResourceManager.GetString("CannotUpdateArchivedNamespace", resourceCulture);
             }
         }
         
@@ -196,6 +250,24 @@ namespace Localizator.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All language codes must be 2-letter ISO codes.
+        /// </summary>
+        public static string InvalidLanguageCode {
+            get {
+                return ResourceManager.GetString("InvalidLanguageCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid namespace permission..
+        /// </summary>
+        public static string InvalidNamespacePermission {
+            get {
+                return ResourceManager.GetString("InvalidNamespacePermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OIDC token validation failed..
         /// </summary>
         public static string InvalidOIDCToken {
@@ -223,6 +295,15 @@ namespace Localizator.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid version bump type.
+        /// </summary>
+        public static string InvalidVersionBumpType {
+            get {
+                return ResourceManager.GetString("InvalidVersionBumpType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NameIdentifier claim missing.
         /// </summary>
         public static string NameIdentifierClaimMissing {
@@ -232,11 +313,173 @@ namespace Localizator.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Namespace is already archived.
+        /// </summary>
+        public static string NamespaceAlreadyArchived {
+            get {
+                return ResourceManager.GetString("NamespaceAlreadyArchived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace is already in draft status.
+        /// </summary>
+        public static string NamespaceAlreadyDraft {
+            get {
+                return ResourceManager.GetString("NamespaceAlreadyDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace is already published.
+        /// </summary>
+        public static string NamespaceAlreadyPublished {
+            get {
+                return ResourceManager.GetString("NamespaceAlreadyPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NamespaceId cannot be empty.
+        /// </summary>
+        public static string NamespaceIdCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NamespaceIdCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace must support at least one language.
+        /// </summary>
+        public static string NamespaceMustSupportOneLanguage {
+            get {
+                return ResourceManager.GetString("NamespaceMustSupportOneLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace name cannot be empty.
+        /// </summary>
+        public static string NamespaceNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NamespaceNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace name cannot exceed 100 characters.
+        /// </summary>
+        public static string NamespaceNameTooLong {
+            get {
+                return ResourceManager.GetString("NamespaceNameTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace permission cannot be null..
+        /// </summary>
+        public static string NamespacePermissionCannotBeNull {
+            get {
+                return ResourceManager.GetString("NamespacePermissionCannotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace slug cannot be empty.
+        /// </summary>
+        public static string NamespaceSlugCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NamespaceSlugCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace slug can only contain lowercase letters, numbers and hyphens.
+        /// </summary>
+        public static string NamespaceSlugInvalidFormat {
+            get {
+                return ResourceManager.GetString("NamespaceSlugInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace slug cannot exceed 50 characters.
+        /// </summary>
+        public static string NamespaceSlugTooLong {
+            get {
+                return ResourceManager.GetString("NamespaceSlugTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status cannot be empty.
+        /// </summary>
+        public static string NamespaceStatusCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NamespaceStatusCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid status. Must be one of: {0}.
+        /// </summary>
+        public static string NamespaceStatusInvalid {
+            get {
+                return ResourceManager.GetString("NamespaceStatusInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version cannot be empty.
+        /// </summary>
+        public static string NamespaceVersionCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NamespaceVersionCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version must follow semantic versioning (e.g., 1.0.0).
+        /// </summary>
+        public static string NamespaceVersionInvalidFormat {
+            get {
+                return ResourceManager.GetString("NamespaceVersionInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This functionality is not implemented..
         /// </summary>
         public static string NotImplemented {
             get {
                 return ResourceManager.GetString("NotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only archived namespaces can be restored.
+        /// </summary>
+        public static string OnlyArchivedCanBeRestored {
+            get {
+                return ResourceManager.GetString("OnlyArchivedCanBeRestored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published date cannot be in the future.
+        /// </summary>
+        public static string PublishedDateCannotBeFuture {
+            get {
+                return ResourceManager.GetString("PublishedDateCannotBeFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publisher identifier cannot be empty.
+        /// </summary>
+        public static string PublisherIdentifierCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("PublisherIdentifierCannotBeEmpty", resourceCulture);
             }
         }
         
