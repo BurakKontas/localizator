@@ -115,6 +115,15 @@ namespace Localizator.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bearer token missing..
+        /// </summary>
+        public static string BearerTokenMissing {
+            get {
+                return ResourceManager.GetString("BearerTokenMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to context.Resource is not Microsoft.AspNetCore.Http.HttpContext.
         /// </summary>
         public static string ContextResourceIsNotHttpContext {
@@ -169,11 +178,29 @@ namespace Localizator.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid authorization scheme..
+        /// </summary>
+        public static string InvalidAuthorizationScheme {
+            get {
+                return ResourceManager.GetString("InvalidAuthorizationScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid credential format.
         /// </summary>
         public static string InvalidCredentialFormat {
             get {
                 return ResourceManager.GetString("InvalidCredentialFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OIDC token validation failed..
+        /// </summary>
+        public static string InvalidOIDCToken {
+            get {
+                return ResourceManager.GetString("InvalidOIDCToken", resourceCulture);
             }
         }
         
@@ -246,6 +273,15 @@ namespace Localizator.Shared.Resources {
         public static string Unauthorized {
             get {
                 return ResourceManager.GetString("Unauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User identifier missing.
+        /// </summary>
+        public static string UserIdentifierMissing {
+            get {
+                return ResourceManager.GetString("UserIdentifierMissing", resourceCulture);
             }
         }
         

@@ -156,6 +156,9 @@
   <data name="AnErrorOccured" xml:space="preserve">
     <value>Beklenmeyen bir hata oluştu.</value>
   </data>
+  <data name="InternalServerError" xml:space="preserve">
+    <value>Sunucu tarafında bir hata oluştu.</value>
+  </data>
   <data name="InvalidRequest" xml:space="preserve">
     <value>İstek geçersiz.</value>
   </data>
@@ -179,5 +182,17 @@
   </data>
   <data name="BadGateway" xml:space="preserve">
     <value>Ağ geçidi hatası oluştu.</value>
+  </data>
+  <data name="InvalidAuthorizationScheme" xml:space="preserve">
+    <value>Geçersiz doğrulama şeması.</value>
+  </data>
+  <data name="BearerTokenMissing" xml:space="preserve">
+    <value>Bearer tokeni eksik.</value>
+  </data>
+  <data name="UserIdentifierMissing" xml:space="preserve">
+    <value>Kullanıcı tanımlayıcısı eksik.</value>
+  </data>
+  <data name="InvalidOIDCToken" xml:space="preserve">
+    <value>OIDC token doğrulaması başarısız.</value>
   </data>
 </root>

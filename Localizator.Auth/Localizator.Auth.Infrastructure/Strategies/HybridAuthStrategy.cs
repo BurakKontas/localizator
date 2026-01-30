@@ -21,12 +21,12 @@ public sealed class HybridAuthStrategy(
     private readonly UserManager<LocalizatorIdentityUser> _userManager = userManager;
     private readonly SignInManager<LocalizatorIdentityUser> _signInManager = signInManager;
 
-    public override async Task<Result<bool>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
+    public override async Task<Result<int>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
     {
         if (Options is not IApiKeyAuthOptions apiKeyOptions || Options is not IOidcAuthOptions oidcAuthOptions)
         {
             _logger.LogError("HybridAuthStrategy requires both API Key and OIDC options.");
-            return Result<bool>.Failure("Invalid authentication configuration.");
+            return Result<int>.Failure("Invalid authentication configuration.", StatusCodes.Status401Unauthorized);
         }
 
         string message = string.Empty;
@@ -36,11 +36,11 @@ public sealed class HybridAuthStrategy(
             ILogger<ApiKeyAuthStrategy> apiKeyLogger = loggerFactory.CreateLogger<ApiKeyAuthStrategy>();
             var apiKeyStrategy = new ApiKeyAuthStrategy(_provider, apiKeyLogger, _userManager, _signInManager);
 
-            Result<bool> apiKeyResult = await apiKeyStrategy.AuthenticateAsync(context, ct);
+            Result<int> apiKeyResult = await apiKeyStrategy.AuthenticateAsync(context, ct);
 
             if(apiKeyResult.IsSuccess)
             {
-                return Result<bool>.Success();
+                return apiKeyResult;
             }
 
             message += "API Key: " + apiKeyResult.Message + ". ";
@@ -51,16 +51,16 @@ public sealed class HybridAuthStrategy(
             ILogger<OidcAuthStrategy> oidcLogger = loggerFactory.CreateLogger<OidcAuthStrategy>();
             var oidcStrategy = new OidcAuthStrategy(_provider, oidcLogger, _signInManager, _userManager);
 
-            Result<bool> oidcResult = await oidcStrategy.AuthenticateAsync(context, ct);
+            Result<int> oidcResult = await oidcStrategy.AuthenticateAsync(context, ct);
 
             if(oidcResult.IsSuccess)
             {
-                return Result<bool>.Success();
+                return oidcResult;
             }
 
             message += "OIDC: " + oidcResult.Message;
         }
 
-        return Result<bool>.Failure(message);
+        return Result<int>.Failure(message, StatusCodes.Status403Forbidden);
     }
 }

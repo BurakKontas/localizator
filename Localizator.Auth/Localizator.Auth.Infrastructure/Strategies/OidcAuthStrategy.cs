@@ -2,10 +2,8 @@
 using Localizator.Auth.Domain.Interfaces.Configuration;
 using Localizator.Auth.Domain.Interfaces.Strategy;
 using Localizator.Auth.Infrastructure.Strategies.Abstract;
-using Localizator.Shared.Extensions;
 using Localizator.Shared.Resources;
 using Localizator.Shared.Result;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -29,21 +27,21 @@ public sealed class OidcAuthStrategy(
     private readonly ILogger<OidcAuthStrategy> _logger = logger;
     private readonly JwtSecurityTokenHandler _tokenHandler = new();
 
-    public override async Task<Result<bool>> AuthenticateAsync(
+    public override async Task<Result<int>> AuthenticateAsync(
         HttpContext context,
         CancellationToken ct = default
     )
     {
         if (!context.Request.Headers.TryGetValue("Authorization", out var authHeader))
-            return Result<bool>.Failure("Authorization header missing.");
+            return Result<int>.Failure(Errors.AuthorizationHeaderNotFound, StatusCodes.Status401Unauthorized);
 
         if (!AuthenticationHeaderValue.TryParse(authHeader, out var header) ||
             header.Scheme != "Bearer")
-            return Result<bool>.Failure("Invalid authorization scheme.");
+            return Result<int>.Failure(Errors.InvalidAuthorizationScheme, StatusCodes.Status401Unauthorized);
 
         var token = header.Parameter;
         if (string.IsNullOrWhiteSpace(token))
-            return Result<bool>.Failure("Bearer token missing.");
+            return Result<int>.Failure(Errors.BearerTokenMissing, StatusCodes.Status401Unauthorized);
 
         try
         {
@@ -79,17 +77,21 @@ public sealed class OidcAuthStrategy(
 
             ClaimsPrincipal claims = _tokenHandler.ValidateToken(token, validationParameters, out _);
 
-            string username =
+            string? username =
                 claims.FindFirst("preferred_username")?.Value ??
                 claims.FindFirst(ClaimTypes.NameIdentifier)?.Value ??
-                claims.FindFirst("sub")?.Value
-                ?? throw new SecurityTokenException("User identifier missing");
+                claims.FindFirst("sub")?.Value;
+
+            if(username == null)
+            {
+                return Result<int>.Failure(Errors.UserIdentifierMissing, StatusCodes.Status401Unauthorized);
+            }
 
             Result<bool> isLoggedIn = CheckIfUserLoggedIn(_signInManager, context, username);
 
             if (isLoggedIn.IsSuccess)
             {
-                return Result<bool>.Success(true);
+                return Result<int>.Success(StatusCodes.Status200OK);
             }
             else
             {
@@ -105,12 +107,12 @@ public sealed class OidcAuthStrategy(
         catch (SecurityTokenException ex)
         {
             _logger.LogWarning(ex, "OIDC token validation failed.");
-            return Result<bool>.Failure("Invalid token.");
+            return Result<int>.Failure(Errors.InvalidOIDCToken, StatusCodes.Status401Unauthorized);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "OIDC authentication error.");
-            return Result<bool>.Failure("Authentication error.");
+            return Result<int>.Failure(Errors.AnErrorOccured, StatusCodes.Status500InternalServerError);
         }
     }
 }

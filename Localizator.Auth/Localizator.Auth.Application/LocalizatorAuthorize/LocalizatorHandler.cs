@@ -17,7 +17,7 @@ public sealed class LocalizatorHandler(IAuthStrategy authStrategy) : Authorizati
     {
         if (context.Resource is HttpContext httpContext)
         {
-            Result<bool> result = await _authStrategy.AuthenticateAsync(httpContext);
+            Result<int> result = await _authStrategy.AuthenticateAsync(httpContext);
             
             if(result.IsSuccess)
             {

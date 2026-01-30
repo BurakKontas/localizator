@@ -196,4 +196,16 @@
   <data name="BadGateway" xml:space="preserve">
     <value>Bad gateway error occurred.</value>
   </data>
+  <data name="InvalidAuthorizationScheme" xml:space="preserve">
+    <value>Invalid authorization scheme.</value>
+  </data>
+  <data name="BearerTokenMissing" xml:space="preserve">
+    <value>Bearer token missing.</value>
+  </data>
+  <data name="UserIdentifierMissing" xml:space="preserve">
+    <value>User identifier missing</value>
+  </data>
+  <data name="InvalidOIDCToken" xml:space="preserve">
+    <value>OIDC token validation failed.</value>
+  </data>
 </root>

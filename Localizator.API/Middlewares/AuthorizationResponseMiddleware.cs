@@ -1,4 +1,4 @@
-﻿using Localizator.Shared.Providers;
+﻿using Localizator.Shared.Exceptions;
 using Localizator.Shared.Result;
 
 namespace Localizator.API.Middlewares;
@@ -11,11 +11,10 @@ public class AuthorizationResponseMiddleware(RequestDelegate next)
     {
         await _next(context);
 
-        if (context.Items.TryGetValue("AuthResult", out var value) && value is Result<bool> result)
+        if (context.Items.TryGetValue("AuthResult", out var value) && value is Result<int> result)
         {
             context.Items.Remove("AuthResult");
-            result.Meta = MetaProvider.Get();
-            await context.Response.WriteAsJsonAsync(result);
+            throw new TechnicalException(title: "Authorization Error", message: result.Message, statusCode: result.Data);
         }
     }
 }

@@ -71,7 +71,7 @@ public class ResultWrapperMiddleware(RequestDelegate next)
 
     private Result BuildResult(HttpContext context, string rawResponse, object? responseObject, Meta meta)
     {
-        // Zaten Result dönülmüşse sadece meta ekle
+        // If result is already Result type add meta
         if (IsResultObject(rawResponse))
         {
             var existing = JsonSerializer.Deserialize<Result>(rawResponse, GetJsonOptions());
@@ -181,7 +181,7 @@ public class ResultWrapperMiddleware(RequestDelegate next)
         await WriteResponse(context, originalStream, json);
     }
 
-    private static (int Status, string Title, string Code) MapException(Exception ex)
+    private (int Status, string Title, string Code) MapException(Exception ex)
     {
         return ex switch
         {

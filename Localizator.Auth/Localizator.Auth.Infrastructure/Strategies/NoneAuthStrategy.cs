@@ -20,7 +20,7 @@ public sealed class NoneAuthStrategy(
     private readonly UserManager<LocalizatorIdentityUser> _userManager = userManager;
     private readonly SignInManager<LocalizatorIdentityUser> _signInManager = signInManager;
 
-    public override async Task<Result<bool>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
+    public override async Task<Result<int>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
     {
         var username = "devuser";
 
@@ -28,7 +28,7 @@ public sealed class NoneAuthStrategy(
 
         if (isLoggedIn.IsSuccess)
         {
-            return Result<bool>.Success(true);
+            return Result<int>.Success(StatusCodes.Status200OK);
         }
         else
         {

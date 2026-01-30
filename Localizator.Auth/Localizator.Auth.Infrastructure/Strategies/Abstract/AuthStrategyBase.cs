@@ -16,7 +16,7 @@ public abstract class AuthStrategyBase<TOptions>(IAuthOptionsProvider provider) 
 {
     protected TOptions Options { get; } = (TOptions) provider.Get();
     public AuthMode Mode { get; init; } = provider.Get().Mode;
-    public abstract Task<Result<bool>> AuthenticateAsync(HttpContext context, CancellationToken ct = default);
+    public abstract Task<Result<int>> AuthenticateAsync(HttpContext context, CancellationToken ct = default);
 
     protected Result<bool> CheckIfUserLoggedIn(SignInManager<LocalizatorIdentityUser> signInManager, HttpContext context, string username)
     {
@@ -89,7 +89,7 @@ public abstract class AuthStrategyBase<TOptions>(IAuthOptionsProvider provider) 
         context.User = principal;
     }
 
-    protected async Task<Result<bool>> SignInUserAsync(
+    protected async Task<Result<int>> SignInUserAsync(
         HttpContext context,
         SignInManager<LocalizatorIdentityUser> signInManager,
         UserManager<LocalizatorIdentityUser> userManager,
@@ -109,11 +109,11 @@ public abstract class AuthStrategyBase<TOptions>(IAuthOptionsProvider provider) 
 
             await SignInAsync(context, principal);
 
-            return Result<bool>.Success(true);
+            return Result<int>.Success(StatusCodes.Status200OK);
         }
         catch (Exception ex)
         {
-            return Result<bool>.Failure(ex.Message);
+            return Result<int>.Failure(ex.Message, StatusCodes.Status500InternalServerError);
         }
     }
 }

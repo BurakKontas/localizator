@@ -24,19 +24,17 @@ public sealed class LocalAuthStrategy(
     private readonly SignInManager<LocalizatorIdentityUser> _signInManager = signInManager;
     private readonly UserManager<LocalizatorIdentityUser> _userManager = userManager;
 
-    public override async Task<Result<bool>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
+    public override async Task<Result<int>> AuthenticateAsync(HttpContext context, CancellationToken ct = default)
     {
         if (!context.Request.Headers.TryGetValue("Authorization", out var authHeader))
         {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return Result<bool>.Failure(Errors.AuthorizationHeaderNotFound);
+            return Result<int>.Failure(Errors.AuthorizationHeaderNotFound, StatusCodes.Status401Unauthorized);
         }
 
         var headerValue = authHeader.ToString();
         if (!headerValue.StartsWith("Basic ", StringComparison.OrdinalIgnoreCase))
         {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return Result<bool>.Failure(Errors.BasicAuthorizationHeaderInvalidFormat);
+            return Result<int>.Failure(Errors.BasicAuthorizationHeaderInvalidFormat, StatusCodes.Status401Unauthorized);
         }
 
         // Decode Base64 credentials
@@ -49,15 +47,13 @@ public sealed class LocalAuthStrategy(
         }
         catch
         {
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return Result<bool>.Failure(Errors.Base64ConversionError);
+            return Result<int>.Failure(Errors.Base64ConversionError, StatusCodes.Status401Unauthorized);
         }
 
         var parts = decoded.Split(':', 2);
         if (parts.Length != 2)
         {
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return Result<bool>.Failure();
+            return Result<int>.Failure(data: StatusCodes.Status401Unauthorized);
         }
 
         var (username, password) = (parts[0], parts[1]);
@@ -65,15 +61,14 @@ public sealed class LocalAuthStrategy(
         // Basic credential check
         if (username != Options.AdminUser || password != Options.AdminPassword)
         {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return Result<bool>.Failure(Errors.BasicCredentialsDontMatch);
+            return Result<int>.Failure(Errors.BasicCredentialsDontMatch, StatusCodes.Status401Unauthorized);
         }
 
         Result<bool> isLoggedIn = CheckIfUserLoggedIn(_signInManager, context, username);
 
         if(isLoggedIn.IsSuccess)
         {
-            return Result<bool>.Success(true);
+            return Result<int>.Success(StatusCodes.Status200OK);
         }
         else
         {

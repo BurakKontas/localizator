@@ -19,6 +19,8 @@ public sealed class AuthConfigController(IAuthOptions options, IAuthStrategy aut
     [LocalizatorAuthorize]
     public async Task<IActionResult> Get(CancellationToken cancellationToken)
     {
+        throw new TimeoutException();
+
         await _authStrategy.AuthenticateAsync(HttpContext, cancellationToken);
         return Ok(new Dictionary<string, string>()
         {

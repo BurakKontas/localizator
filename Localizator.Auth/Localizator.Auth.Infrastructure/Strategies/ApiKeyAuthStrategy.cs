@@ -25,7 +25,7 @@ public sealed class ApiKeyAuthStrategy(
     private readonly UserManager<LocalizatorIdentityUser> _userManager = userManager;
     private readonly SignInManager<LocalizatorIdentityUser> _signInManager = signInManager;
 
-    public override async Task<Result<bool>> AuthenticateAsync(
+    public override async Task<Result<int>> AuthenticateAsync(
         HttpContext context,
         CancellationToken ct = default)
     {
@@ -36,28 +36,43 @@ public sealed class ApiKeyAuthStrategy(
             );
 
         if (matchedKey.Equals(default(KeyValuePair<string, string>)))
-            return Result<bool>.Failure(Errors.InvalidOrMissingAPIKey);
+        {
+            return Result<int>.Failure(
+                Errors.InvalidOrMissingAPIKey,
+                StatusCodes.Status401Unauthorized
+            );
+        }
 
         var apiKeyUsed = matchedKey.Key;
+        var username = apiKeyUsed;
 
-        string username = apiKeyUsed;
-
-        Result<bool> isLoggedIn = CheckIfUserLoggedIn(_signInManager, context, username);
+        var isLoggedIn = CheckIfUserLoggedIn(
+            _signInManager,
+            context,
+            username
+        );
 
         if (isLoggedIn.IsSuccess)
         {
-            return Result<bool>.Success(true);
-        }
-        else
-        {
-            await _signInManager.SignOutAsync();
+            return Result<int>.Success(StatusCodes.Status200OK);
         }
 
-        return await SignInUserAsync(
+        await _signInManager.SignOutAsync();
+
+        var signInResult = await SignInUserAsync(
             context,
             _signInManager,
             _userManager,
-            username);
+            username
+        );
+
+        return signInResult.IsSuccess
+            ? Result<int>.Success(StatusCodes.Status200OK)
+            : Result<int>.Failure(
+                message: signInResult.Message,
+                data: StatusCodes.Status401Unauthorized
+            );
     }
+
 
 }

@@ -27,6 +27,7 @@ var app = builder.Build();
 
 app.AddLocalization();
 
+app.UseMiddleware<LocaleMiddleware>();
 app.UseMiddleware<ResultWrapperMiddleware>();
 app.UseMiddleware<MetaMiddleware>();
 app.UseMiddleware<RequestTimingMiddleware>();

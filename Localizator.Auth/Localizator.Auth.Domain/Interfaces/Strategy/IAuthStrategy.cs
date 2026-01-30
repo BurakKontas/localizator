@@ -7,5 +7,5 @@ namespace Localizator.Auth.Domain.Interfaces.Strategy;
 public interface IAuthStrategy
 {
     AuthMode Mode { get; }
-    Task<Result<bool>> AuthenticateAsync(HttpContext context, CancellationToken ct = default);
+    Task<Result<int>> AuthenticateAsync(HttpContext context, CancellationToken ct = default);
 }
