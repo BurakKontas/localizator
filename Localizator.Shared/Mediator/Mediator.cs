@@ -55,4 +55,9 @@ public class Mediator(IServiceProvider serviceProvider) : IMediator
 
         return await handlerDelegate();
     }
+
+    public Task Send(IRequest request, CancellationToken cancellationToken = default)
+    {
+        return Send<object>(request, cancellationToken);
+    }
 }

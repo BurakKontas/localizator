@@ -16,6 +16,7 @@
   <Folder Name="/Modules/Namespace/">
     <Project Path="Localizator.Namespace/Localizator.Namespace.Application/Localizator.Namespace.Application.csproj" />
     <Project Path="Localizator.Namespace/Localizator.Namespace.Domain/Localizator.Namespace.Domain.csproj" />
+    <Project Path="Localizator.Namespace/Localizator.Namespace.Infrastructure/Localizator.Namespace.Infrastructure.csproj" Id="8750fc70-b13b-4c64-84c0-cb88e5f2f9c3" />
   </Folder>
   <Folder Name="/Modules/Shared/">
     <Project Path="Localizator.Shared/Localizator.Shared.csproj" />
